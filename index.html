@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="The First Free-Form Multi-Image Grounding MLLM.">
+  <meta name="keywords" content="Multi-image Grounding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Migician</title>
+
+
+
+  <link rel="icon" href="./static/images/logo.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="./static/images/logo.png" style="width:2em;vertical-align: middle" alt="Logo"/>
+            <span class="Migician" style="font-family: 'CustomFont', sans-serif;">Migician</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Revealing the Magic of Free-Form Multi-Image Grounding in Multimodal Large Language Models
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~You_Li9">You Li</a><sup style="color:#ed4b82;">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Heyu_Huang2">Heyu Huang</a><sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Chi_Chen1">Chi Chen</a><sup style="color:#cfbb64">3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Kaiyu_Huang1">Kaiyu Huang</a><sup style="color:#ed4b82;">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Chao_Huang17">Chao Huang</a><sup style="color:#ed4b82;">1</sup>,
+            </span>
+        
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Zonghao_Guo1">Zonghao Guo</a><sup style="color:#cfbb64">3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Zhiyuan_Liu1">Zhiyuan Liu</a><sup style="color:#cfbb64">3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Jinan_Xu1">Jinan Xu</a><sup style="color:#ed4b82;">1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Yuhua_Li2">Yuhua Li</a><sup style="color:#6fbf73">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Ruixuan_Li1">Ruixuan Li</a><sup style="color:#6fbf73">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://openreview.net/profile?id=~Maosong_Sun1">Maosong Sun</a><sup style="color:#cfbb64">3</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#ed4b82">1</sup>Beijing Jiaotong University, Beijing, China</span><br>
+            <span class="author-block"><sup style="color:#6fbf73;">2</sup>Huazhong University of Science and Technology, Wuhan, China</span><br>
+            <span class="author-block"><sup style="color:#cfbb64">3</sup>Tsinghua University, Beijing, China</span><br>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2501.05767"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Michael4933/Migician"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Demo Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/Michael4933/Migician"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🖼️</p>
+                  </span>
+                  <span>Demo</span>
+                </a>
+              </span>
+              <!-- Model Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/Michael4933/Migician"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Model</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Michael4933/MGrounding-630k"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span> 
+              <!-- Benchmark Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Michael4933/MIG-Bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Benchmark</span>
+                </a>
+              </span>
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+
+        <div id="results-carousel" class="carousel results-carousel" >
+
+          <!-- 图片 A -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/head_1.png" type="image/png">
+            </div>
+          </div>
+          <!-- 图片 B -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/head_2.png" type="image/png" width="84%">
+            </div>
+          </div>
+          <!-- 图片 C -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/multi_general.png" type="image/png">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+  
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            The recent advancement of Multimodal Large Language Models (MLLMs) has significantly improved their fine-grained perception of single images and general comprehension across multiple images. However, existing MLLMs still face challenges in achieving precise grounding in complex multi-image scenarios. To address this, we first explore a Chain-of-Thought (CoT) framework that integrates single-image grounding with multi-image comprehension. While partially effective, it remains unstable and struggles to capture abstract visual information due to its non-end-to-end nature. Therefore, we introduce <strong>Migician</strong>, the first multi-image grounding model capable of performing free-form and accurate grounding across multiple images. To support this, we present the MGrounding-630k dataset, which comprises data for several multi-image grounding tasks derived from existing datasets, along with newly generated free-form grounding instruction-following data. Furthermore, we propose MIG-Bench, a comprehensive benchmark specifically designed for evaluating multi-image grounding capabilities. Experimental results demonstrate that our model achieves significantly superior multi-image grounding capabilities, outperforming the best existing MLLMs by 21.61% and even surpassing much larger 70B models.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">MIG-Bench Tasks Overview</h2>
+        <div class="content has-text-justified">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/tasks.png" type="image/png">
+            </div>
+          </div>
+          <p>
+            As shown above, based on whether the task involves explicit reference requirements, multi-image grounding tasks can be further categorized into two types: <strong>Spontaneous Grounding</strong> and <strong>Referential Grounding</strong>. Spontaneous Grounding refers to recognizing and grounding the target object in corresponding images without explicitly pointing it out. Unlike the conventional Reference Expression Comprehension task that explicitly refer to the target object, Spontaneous Grounding typically utilizes the relationships between multiple images as contextual cues to autonomously identify and localize the objects to be grounded~(e.g., finding and locating differences between images). Referential Grounding, on the other hand, requires an explicit reference to the target object. As mentioned earlier, such references can take the form of arbitrary combinations of images and textual descriptions.
+            <br>
+            Noticeably, our proposed multi-image grounding paradigm could potentially be a general paradigm unifying diverse tasks traditionally dominated by specialized expert models, for instance object tracking, vehicle/person re-identification, partial graph matching and etc, facilitating more general and versatile machine intelligence. Moreover, its innate multi-image characteristics circumvents the need for additional visual modules specializedly processing visual input queries (<a href="https://github.com/OpenGVLab/VisionLLM">VisionLLM v2</a>, <a href="https://arxiv.org/abs/2403.09333">Griffon v2</a>), rendering a more general architecture.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<p style="margin-bottom: 100px;"></p>
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Data Statistics</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <!-- 图片 A -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/statistics_1.png" type="image/png">
+            </div>
+          </div>
+          <!-- 图片 B -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/statistics_2.png" type="image/png" width="74%">
+            </div>
+          </div>
+          <!-- 图片 C -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/statistics_3.png" type="image/png" width="44%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p style="margin-bottom: 100px;"></p>
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Chain-of-Thought Framework</h2>
+        <div class="content has-text-justified">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/cot.png" type="image/png">
+            </div>
+          </div>
+          <p>
+            Although some existing MLLMs demonstrate strong multi-image understanding and single-image grounding capabilities, directly prompting them to perform MIG tasks often leads to significant performance degradation as illustrated above in (a). Our proposed Chain-of-Thought (CoT) framework enables the model to effectively leverage and combine its exitsing abilities during the MIG execution. 
+            <br>
+            However, the CoT framework suffers from several inherent limitations. On one hand, the multi-step process introduces error propagation issues and impacts reasoning efficiency. On the other hand, many scenarios require grounding through abstract visual semantics across multi-image contexts (as shown above in (c)), making the use of an intermediate textual referring expression impractical. More failure patterns of the CoT framework are illustrated below. This highlights the need for an end-to-end model capable of directly performing the MIG task.
+          </p>
+        </div>
+        <div class="content has-text-justified">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/failure.png" type="image/png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+        <div class="content">
+
+          <div class="table-container" id="tablePage1">
+            <table class="js-sort-table" id="results" style="margin-left: 0px; margin-right: 0px;">
+              <thead>
+                <tr>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="none"><strong>Rank</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 280px;" data-js-sort-colNum="none"><strong>Model</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="none"><strong>AVE</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Static Diff</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Robust Diff</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Common Object</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Object Tracking</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Multi-view</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Region Locating</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Referring Grounding</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Group Grounding</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Reasoning</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>CoRe</strong></th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <span class="icon" style="color: gold;">
+                      <i class="fas fa-medal"></i>
+                    </span>
+                  </td>
+                  <td style="text-align: middle;">
+                    <b class="">
+                      <a class="ext-link" style="font-size: 16px; margin-left: 5px;">Migician</a>
+                    </b>
+                  </td>
+                  <td style="vertical-align: middle;">63.82</td>
+                  <td style="vertical-align: middle;">65.15</td>
+                  <td style="vertical-align: middle;">46.81</td>
+                  <td style="vertical-align: middle;">84.19</td>
+                  <td style="vertical-align: middle;">70.73</td>
+                  <td style="vertical-align: middle;">60.07</td>
+                  <td style="vertical-align: middle;">74.31</td>
+                  <td style="vertical-align: middle;">76.77</td>
+                  <td style="vertical-align: middle;">66.53</td>
+                  <td style="vertical-align: middle;">59.41</td>
+                  <td style="vertical-align: middle;">34.19</td>
+                                
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <span class="icon" style="color: silver;">
+                      <i class="fas fa-medal"></i>
+                    </span>
+                  </td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">Qwen2-VL-72B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">38.88</td>
+                  <td style="vertical-align: middle;">46.12</td>
+                  <td style="vertical-align: middle;">46.18</td>
+                  <td style="vertical-align: middle;">64.46</td>
+                  <td style="vertical-align: middle;">26.73</td>
+                  <td style="vertical-align: middle;">22.57</td>
+                  <td style="vertical-align: middle;">18.62</td>
+                  <td style="vertical-align: middle;">33.33</td>
+                  <td style="vertical-align: middle;">62.53</td>
+                  <td style="vertical-align: middle;">50.50</td>
+                  <td style="vertical-align: middle;">17.09</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <span class="icon" style="color: #cd7f32;">
+                      <i class="fas fa-medal"></i>
+                    </span>
+                  </td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">Qwen2-VL-7B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">28.62</td>
+                  <td style="vertical-align: middle;">27.84</td>
+                  <td style="vertical-align: middle;">38.30</td>
+                  <td style="vertical-align: middle;">19.36</td>
+                  <td style="vertical-align: middle;">20.73</td>
+                  <td style="vertical-align: middle;">11.81</td>
+                  <td style="vertical-align: middle;">25.95</td>
+                  <td style="vertical-align: middle;">23.23</td>
+                  <td style="vertical-align: middle;">58.52</td>
+                  <td style="vertical-align: middle;">48.51</td>
+                  <td style="vertical-align: middle;">11.97</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">InternVL2-76B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">26.72</td>
+                  <td style="vertical-align: middle;">15.91</td>
+                  <td style="vertical-align: middle;">10.64</td>
+                  <td style="vertical-align: middle;">36.40</td>
+                  <td style="vertical-align: middle;">30.73</td>
+                  <td style="vertical-align: middle;">20.83</td>
+                  <td style="vertical-align: middle;">5.74</td>
+                  <td style="vertical-align: middle;">46.46</td>
+                  <td style="vertical-align: middle;">41.28</td>
+                  <td style="vertical-align: middle;">32.67</td>
+                  <td style="vertical-align: middle;">26.50</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">InternVL2-8B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">15.96</td>
+                  <td style="vertical-align: middle;">6.92</td>
+                  <td style="vertical-align: middle;">7.45</td>
+                  <td style="vertical-align: middle;">25.49</td>
+                  <td style="vertical-align: middle;">20.73</td>
+                  <td style="vertical-align: middle;">9.72</td>
+                  <td style="vertical-align: middle;">3.49</td>
+                  <td style="vertical-align: middle;">28.28</td>
+                  <td style="vertical-align: middle;">30.26</td>
+                  <td style="vertical-align: middle;">17.82</td>
+                  <td style="vertical-align: middle;">9.40</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">LLaVA-OV-72B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">13.65</td>
+                  <td style="vertical-align: middle;">13.26</td>
+                  <td style="vertical-align: middle;">5.34</td>
+                  <td style="vertical-align: middle;">26.84</td>
+                  <td style="vertical-align: middle;">12.91</td>
+                  <td style="vertical-align: middle;">7.64</td>
+                  <td style="vertical-align: middle;">2.14</td>
+                  <td style="vertical-align: middle;">17.83</td>
+                  <td style="vertical-align: middle;">21.60</td>
+                  <td style="vertical-align: middle;">11.88</td>
+                  <td style="vertical-align: middle;">8.55</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">mPLUG-Owl3
+                  </a></b></td>
+                  <td style="vertical-align: middle;">12.35</td>
+                  <td style="vertical-align: middle;">18.56</td>
+                  <td style="vertical-align: middle;">6.34</td>
+                  <td style="vertical-align: middle;">34.93</td>
+                  <td style="vertical-align: middle;">8.55</td>
+                  <td style="vertical-align: middle;">7.64</td>
+                  <td style="vertical-align: middle;">2.41</td>
+                  <td style="vertical-align: middle;">7.07</td>
+                  <td style="vertical-align: middle;">22.85</td>
+                  <td style="vertical-align: middle;">9.09</td>
+                  <td style="vertical-align: middle;">5.98</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">MiniCPM-V_2.6
+                  </a></b></td>
+                  <td style="vertical-align: middle;">7.55</td>
+                  <td style="vertical-align: middle;">14.58</td>
+                  <td style="vertical-align: middle;">2.13</td>
+                  <td style="vertical-align: middle;">14.34</td>
+                  <td style="vertical-align: middle;">9.82</td>
+                  <td style="vertical-align: middle;">6.25</td>
+                  <td style="vertical-align: middle;">1.75</td>
+                  <td style="vertical-align: middle;">11.11</td>
+                  <td style="vertical-align: middle;">10.02</td>
+                  <td style="vertical-align: middle;">2.97</td>
+                  <td style="vertical-align: middle;">2.56</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">LLaVA-OV-7B
+                  </a></b></td>
+                  <td style="vertical-align: middle;">4.73</td>
+                  <td style="vertical-align: middle;">6.06</td>
+                  <td style="vertical-align: middle;">3.19</td>
+                  <td style="vertical-align: middle;">3.43</td>
+                  <td style="vertical-align: middle;">0.18</td>
+                  <td style="vertical-align: middle;">1.04</td>
+                  <td style="vertical-align: middle;">1.08</td>
+                  <td style="vertical-align: middle;">9.09</td>
+                  <td style="vertical-align: middle;">15.43</td>
+                  <td style="vertical-align: middle;">6.93</td>
+                  <td style="vertical-align: middle;">0.85</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 12px; margin-left: 5px;">Mantis
+                  </a></b></td>
+                  <td style="vertical-align: middle;">3.20</td>
+                  <td style="vertical-align: middle;">1.52</td>
+                  <td style="vertical-align: middle;">0.00</td>
+                  <td style="vertical-align: middle;">3.31</td>
+                  <td style="vertical-align: middle;">12.18</td>
+                  <td style="vertical-align: middle;">2.08</td>
+                  <td style="vertical-align: middle;">1.00</td>
+                  <td style="vertical-align: middle;">1.01</td>
+                  <td style="vertical-align: middle;">10.02</td>
+                  <td style="vertical-align: middle;">0.00</td>
+                  <td style="vertical-align: middle;">0.85</td>
+                </tr>
+                
+            </tbody>                                                   
+          </table> 
+        </div>
+
+          <div class="table-container" id="tablePage2" style="display: none;">
+            <table class="js-sort-table" id="results" style="margin-left: 0px; margin-right: 0px;">
+              <thead>
+                <tr>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="none"><strong>Rank</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 280px;" data-js-sort-colNum="none"><strong>Model</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="none"><strong>AVE</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Static Diff</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Robust Diff</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Common Object</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Object Tracking</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Multi-view</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Region Locating</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Referring Grounding</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Group Grounding</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>Reasoning</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 100px;" data-js-sort-colNum="none"><strong>CoRe</strong></th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <span class="icon" style="color: gold;">
+                      <i class="fas fa-medal"></i>
+                    </span>
+                  </td>
+                  <td style="text-align: middle;">
+                    <b class="">
+                      <a class="ext-link" style="font-size: 16px; margin-left: 5px;">Migician</a>
+                    </b>
+                  </td>
+                  <td style="vertical-align: middle;">63.82</td>
+                  <td style="vertical-align: middle;">65.15</td>
+                  <td style="vertical-align: middle;">46.81</td>
+                  <td style="vertical-align: middle;">84.19</td>
+                  <td style="vertical-align: middle;">70.73</td>
+                  <td style="vertical-align: middle;">60.07</td>
+                  <td style="vertical-align: middle;">74.31</td>
+                  <td style="vertical-align: middle;">76.77</td>
+                  <td style="vertical-align: middle;">66.53</td>
+                  <td style="vertical-align: middle;">59.41</td>
+                  <td style="vertical-align: middle;">34.19</td>
+                                
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;">
+                  <span class="icon" style="color: silver;">
+                    <i class="fas fa-medal"></i>
+                  </span></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">Qwen2-VL-72B(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">58.70</td>
+                  <td style="vertical-align: middle;">33.33</td>
+                  <td style="vertical-align: middle;">47.87</td>
+                  <td style="vertical-align: middle;">69.24</td>
+                  <td style="vertical-align: middle;">70.18</td>
+                  <td style="vertical-align: middle;">60.42</td>
+                  <td style="vertical-align: middle;">51.04</td>
+                  <td style="vertical-align: middle;">78.79</td>
+                  <td style="vertical-align: middle;">70.74</td>
+                  <td style="vertical-align: middle;">70.30</td>
+                  <td style="vertical-align: middle;">35.04</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;">
+                    <span class="icon" style="color: #cd7f32;">
+                      <i class="fas fa-medal"></i>
+                    </span>
+                  </td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">Qwen2-VL-7B(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">43.82</td>
+                  <td style="vertical-align: middle;">23.48</td>
+                  <td style="vertical-align: middle;">40.43</td>
+                  <td style="vertical-align: middle;">63.85</td>
+                  <td style="vertical-align: middle;">62.73</td>
+                  <td style="vertical-align: middle;">42.71</td>
+                  <td style="vertical-align: middle;">24.85</td>
+                  <td style="vertical-align: middle;">54.55</td>
+                  <td style="vertical-align: middle;">43.29</td>
+                  <td style="vertical-align: middle;">51.49</td>
+                  <td style="vertical-align: middle;">30.77</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">InternVL2-76B(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">42.63</td>
+                  <td style="vertical-align: middle;">16.86</td>
+                  <td style="vertical-align: middle;">6.38</td>
+                  <td style="vertical-align: middle;">70.34</td>
+                  <td style="vertical-align: middle;">70.55</td>
+                  <td style="vertical-align: middle;">33.33</td>
+                  <td style="vertical-align: middle;">27.27</td>
+                  <td style="vertical-align: middle;">68.69</td>
+                  <td style="vertical-align: middle;">57.31</td>
+                  <td style="vertical-align: middle;">52.48</td>
+                  <td style="vertical-align: middle;">23.08</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">InternVL2-8B(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">35.76</td>
+                  <td style="vertical-align: middle;">14.58</td>
+                  <td style="vertical-align: middle;">7.45</td>
+                  <td style="vertical-align: middle;">72.54</td>
+                  <td style="vertical-align: middle;">40.91</td>
+                  <td style="vertical-align: middle;">27.78</td>
+                  <td style="vertical-align: middle;">28.60</td>
+                  <td style="vertical-align: middle;">67.68</td>
+                  <td style="vertical-align: middle;">44.49</td>
+                  <td style="vertical-align: middle;">41.58</td>
+                  <td style="vertical-align: middle;">11.97</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">LLaVA-OV-72B(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">31.72</td>
+                  <td style="vertical-align: middle;">20.27</td>
+                  <td style="vertical-align: middle;">21.28</td>
+                  <td style="vertical-align: middle;">52.57</td>
+                  <td style="vertical-align: middle;">44.36</td>
+                  <td style="vertical-align: middle;">20.83</td>
+                  <td style="vertical-align: middle;">25.60</td>
+                  <td style="vertical-align: middle;">37.37</td>
+                  <td style="vertical-align: middle;">35.07</td>
+                  <td style="vertical-align: middle;">31.68</td>
+                  <td style="vertical-align: middle;">28.21</td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle;"></td>
+                  <td style="text-align: middle;"><b class="">
+                    <a class="ext-link" style="font-size: 10px; margin-left: 5px;">mPLUG-Owl3(CoT)
+                  </a></b></td>
+                  <td style="vertical-align: middle;">26.52</td>
+                  <td style="vertical-align: middle;">16.29</td>
+                  <td style="vertical-align: middle;">8.51</td>
+                  <td style="vertical-align: middle;">55.39</td>
+                  <td style="vertical-align: middle;">44.36</td>
+                  <td style="vertical-align: middle;">25.35</td>
+                  <td style="vertical-align: middle;">19.04</td>
+                  <td style="vertical-align: middle;">36.36</td>
+                  <td style="vertical-align: middle;">30.86</td>
+                  <td style="vertical-align: middle;">18.81</td>
+                  <td style="vertical-align: middle;">10.26</td>
+                </tr>
+                
+            </tbody>                                                   
+          </table> 
+        </div>
+          
+
+          <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+            <a class="pagination-previous" id="prevPage">Previous Page</a>
+            <a class="pagination-next" id="nextPage">Next Page</a>
+            <ul class="pagination-list" id="paginationList">
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+  
+<p style="margin-bottom: 100px;"></p>
+
+<section class="section">
+  <div class="container" style="margin-top: -150px; margin-bottom: -100px;">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Free-Form Grounding Cases</h2>
+          <!-- 图片 A -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case1.png" type="image/png">
+            </div>
+          </div>
+          <!-- 图片 B -->
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case2.png" type="image/png">
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">Citation</h2>
+    <pre><code>
+      @misc{li2025migicianrevealingmagicfreeform,
+      title={Migician: Revealing the Magic of Free-Form Multi-Image Grounding in Multimodal Large Language Models}, 
+      author={You Li and Heyu Huang and Chi Chen and Kaiyu Huang and Chao Huang and Zonghao Guo and Zhiyuan Liu and Jinan Xu and Yuhua Li and Ruixuan Li and Maosong Sun},
+      year={2025},
+      url={https://arxiv.org/abs/2501.05767}, 
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is adapted from <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
